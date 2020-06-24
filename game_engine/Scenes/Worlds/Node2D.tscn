@@ -1,16 +1,12 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Objects/helichopter_test.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/UI/UserInterfaceInLevel.tscn" type="PackedScene" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1673.36, 48.5889 )
 
 [node name="Node2D" type="Node2D"]
-
-[node name="RigidBody2D" parent="." instance=ExtResource( 1 )]
-position = Vector2( 156.075, 150.896 )
-
-[node name="DecayTween" type="Tween" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 936.522, 1027.15 )
@@ -26,3 +22,8 @@ margin_bottom = 55.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 156.075, 150.896 )
+
+[node name="UserInterfaceInLevel" parent="." instance=ExtResource( 2 )]

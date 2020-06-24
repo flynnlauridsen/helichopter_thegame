@@ -1,19 +1,19 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Code/UserInterfaceInLevel.gd" type="Script" id=1]
 
 [node name="UserInterfaceInLevel" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ForceBar" type="ProgressBar" parent="."]
-margin_top = 1056.0
-margin_right = 512.0
-margin_bottom = 1088.0
+[node name="ProgressBar" type="ProgressBar" parent="."]
+margin_left = 20.0
+margin_top = 1060.0
+margin_right = 320.0
+margin_bottom = 1080.0
 rect_rotation = -90.0
-value = 50.0
 percent_visible = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
