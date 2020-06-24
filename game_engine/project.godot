@@ -19,6 +19,10 @@ config/name="test helichoptor"
 run/main_scene="res://Scenes/Worlds/Node2D.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+global="*res://Global.gd"
+
 [display]
 
 window/size/width=1920
