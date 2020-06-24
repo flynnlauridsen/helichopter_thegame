@@ -1,7 +1,9 @@
 extends RigidBody2D
 
 var minVel = 500
+var maxVel = 1000
 var rateOfVelDecay = 200
+var rateOfVelIncrease = 120
 
 var velocity_accel = minVel
 var angular_accel = 300
@@ -25,7 +27,7 @@ func _physics_process(delta):
 		if $"../DecayTween".is_active():
 			$"../DecayTween".stop_all()
 		
-		velocity_accel += 2
+		velocity_accel = clamp(velocity_accel+rateOfVelIncrease*delta,minVel,maxVel)
 		apply_central_impulse(Vector2(velocity_accel*delta*cos(deg2rad(rotation_degrees-90)),velocity_accel*delta*sin(deg2rad(rotation_degrees-90))))
 	if Input.is_action_just_released("up"):
 		slowDown()

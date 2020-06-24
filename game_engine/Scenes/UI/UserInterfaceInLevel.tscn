@@ -1,0 +1,19 @@
+[gd_scene format=2]
+
+[node name="UserInterfaceInLevel" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ForceBar" type="ProgressBar" parent="."]
+margin_top = 1056.0
+margin_right = 512.0
+margin_bottom = 1088.0
+rect_rotation = -90.0
+value = 50.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}

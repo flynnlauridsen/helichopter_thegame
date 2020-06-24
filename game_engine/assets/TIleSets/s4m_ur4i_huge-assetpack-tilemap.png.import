@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/helichopter test 1.png-ae5f5519e568177f61a08fecdbaa5669.stex"
+path="res://.import/s4m_ur4i_huge-assetpack-tilemap.png-3b5e1bba60c2b0e8926d26f9abdef9c1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/helichopter test 1.png"
-dest_files=[ "res://.import/helichopter test 1.png-ae5f5519e568177f61a08fecdbaa5669.stex" ]
+source_file="res://assets/TIleSets/s4m_ur4i_huge-assetpack-tilemap.png"
+dest_files=[ "res://.import/s4m_ur4i_huge-assetpack-tilemap.png-3b5e1bba60c2b0e8926d26f9abdef9c1.stex" ]
 
 [params]
 
