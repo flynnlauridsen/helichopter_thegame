@@ -16,12 +16,8 @@ _global_script_class_icons={
 [application]
 
 config/name="test helichoptor"
-run/main_scene="res://Scenes/Worlds/Node2D.tscn"
+run/main_scene="res://Node2D.tscn"
 config/icon="res://icon.png"
-
-[autoload]
-
-global="*res://Global.gd"
 
 [display]
 
