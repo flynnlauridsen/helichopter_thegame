@@ -10,6 +10,8 @@ extents = Vector2( 1673.36, 48.5889 )
 [node name="RigidBody2D" parent="." instance=ExtResource( 1 )]
 position = Vector2( 156.075, 150.896 )
 
+[node name="DecayTween" type="Tween" parent="."]
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 936.522, 1027.15 )
 
