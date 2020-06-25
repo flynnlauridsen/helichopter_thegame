@@ -59,7 +59,7 @@ right={
 
 2d/default_gravity=500
 2d/default_linear_damp=0.5
-2d/default_angular_damp=5.0
+2d/default_angular_damp=2.14
 
 [rendering]
 
