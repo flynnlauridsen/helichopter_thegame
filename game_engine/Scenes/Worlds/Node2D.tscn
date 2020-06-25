@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Objects/helichopter_test.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/Graphics/uncolored_dark_forest_TEMPBKG.png" type="Texture" id=2]
 [ext_resource path="res://Code/BaseNode.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -8,6 +9,11 @@ extents = Vector2( 1673.36, 48.5889 )
 
 [node name="BaseNode" type="Node2D"]
 script = ExtResource( 3 )
+
+[node name="BKG" type="Sprite" parent="."]
+position = Vector2( 1079.16, -113.344 )
+scale = Vector2( 5.20723, 5.20723 )
+texture = ExtResource( 2 )
 
 [node name="Node2D" type="Node2D" parent="."]
 
