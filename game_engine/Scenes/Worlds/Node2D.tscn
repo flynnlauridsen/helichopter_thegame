@@ -1,20 +1,23 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Objects/helichopter_test.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/UI/UserInterfaceInLevel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Code/BaseNode.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1673.36, 48.5889 )
 
-[node name="Node2D" type="Node2D"]
+[node name="BaseNode" type="Node2D"]
+script = ExtResource( 3 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Node2D"]
 position = Vector2( 936.522, 1027.15 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
 shape = SubResource( 1 )
 
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+[node name="ColorRect" type="ColorRect" parent="Node2D/StaticBody2D"]
 margin_left = -938.0
 margin_top = -45.0
 margin_right = 979.0
@@ -23,7 +26,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 156.075, 150.896 )
-
-[node name="UserInterfaceInLevel" parent="." instance=ExtResource( 2 )]
+[node name="Player" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 922.611, 537.255 )

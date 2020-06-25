@@ -20,8 +20,9 @@ func slowDown():
 	$DecayTween.interpolate_property(self,"velImpulse",velStart,minVel,decayDuration,Tween.TRANS_LINEAR)
 	$DecayTween.start()
 
+
 func _physics_process(delta):
-	print(velImpulse)
+#	print(linear_velocity)
 	if Input.is_action_pressed("up"):
 		#can try offset on blades with apply_impulse
 		if $DecayTween.is_active():
