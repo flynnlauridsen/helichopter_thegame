@@ -13,7 +13,9 @@ script = ExtResource( 3 )
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1005, 540 )
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="." groups=[
+"body",
+]]
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 70, 70 )
 collision_friction = 0.4

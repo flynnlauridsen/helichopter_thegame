@@ -1,23 +1,16 @@
-
 [gd_scene load_steps=7 format=2]
-
 
 [ext_resource path="res://Scenes/Objects/helichopter_test.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Graphics/uncolored_dark_forest_TEMPBKG.png" type="Texture" id=2]
 [ext_resource path="res://Code/BaseNode.gd" type="Script" id=3]
 [ext_resource path="res://assets/Graphics/box.png" type="Texture" id=4]
 
-
-[sub_resource type="PhysicsMaterial" id=2]
+[sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
 bounce = 0.1
 
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 1673.36, 47.15 )
-
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 35, 35 )
+extents = Vector2( 1673.36, 47.15 )
 
 [node name="BaseNode" type="Node2D"]
 script = ExtResource( 3 )
@@ -33,12 +26,12 @@ texture = ExtResource( 2 )
 "body",
 ]]
 position = Vector2( 936.522, 1027.15 )
-physics_material_override = SubResource( 2 )
+physics_material_override = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/StaticBody2D" groups=[
 "body",
 ]]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="Node2D/StaticBody2D"]
 margin_left = -938.0
@@ -62,7 +55,6 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Box"]
-shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -77,7 +69,6 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Box2"]
-shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -92,7 +83,6 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Box3"]
-shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -107,7 +97,6 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Box4"]
-shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -122,7 +111,6 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Box5"]
-shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -137,7 +125,6 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Box6"]
-shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -152,7 +139,6 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Box7"]
-shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -167,7 +153,6 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Box8"]
-shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -182,7 +167,6 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Box9"]
-shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -197,7 +181,6 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Box10"]
-shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -212,7 +195,6 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Box11"]
-shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -227,7 +209,6 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Box12"]
-shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -242,7 +223,6 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Box13"]
-shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
