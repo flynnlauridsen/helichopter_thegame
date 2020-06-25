@@ -19,6 +19,12 @@ func valueSmooth(initValue, finValue, decayDuration):
 	$DecayTween.interpolate_property(self,"velImpulse",initValue,finValue,decayDuration,Tween.TRANS_LINEAR)
 	$DecayTween.start()
 
+func horizontalFlip():
+	for x in get_children():
+		if x is Node2D:
+			x.scale.x *= -1
+			x.position.x *= -1
+	rotation *= -1
 
 func _physics_process(delta):
 #	print(linear_velocity)
@@ -47,3 +53,7 @@ func _physics_process(delta):
 		
 	if Input.is_action_pressed("right"):
 		apply_torque_impulse(angImpulse)
+
+func _unhandled_key_input(event):
+	if event.is_action_pressed("flip"):
+		horizontalFlip()
