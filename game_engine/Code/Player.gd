@@ -6,6 +6,7 @@ var maxAng = 500
 var minAng = 300
 var rateOfVelDecay = 200
 var rateOfVelIncrease = 170
+var gEffectMult = 0
 
 var velImpulse = minVel
 var angImpulse = 300
@@ -33,6 +34,11 @@ func _physics_process(delta):
 		if $DecayTween.is_active():
 			$DecayTween.stop_all()
 		
+		if($RayCast2D.get_collider()):
+			if($RayCast2D.get_collider().is_in_group("body")):
+				velImpulse *= 220/int(($RayCast2D.get_collision_point().distance_to(get_position())))
+				print(220/$RayCast2D.get_collision_point().distance_to(get_position()))
+			
 		velImpulse = clamp(velImpulse+rateOfVelIncrease*delta,minVel,maxVel)
 		apply_central_impulse(Vector2(velImpulse*delta*cos(deg2rad(rotation_degrees-90)),velImpulse*delta*sin(deg2rad(rotation_degrees-90))))
 		
