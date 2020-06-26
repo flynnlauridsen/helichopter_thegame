@@ -7,6 +7,7 @@ var minAng = 300
 var rateOfVelDecay = 200
 var rateOfVelIncrease = 170
 var gEffectMult = 0
+var canFlip = false
 
 var velImpulse = minVel
 var angImpulse = 300
@@ -61,5 +62,7 @@ func _physics_process(delta):
 		apply_torque_impulse(angImpulse)
 
 func _unhandled_key_input(event):
-	if event.is_action_pressed("flip"):
-		horizontalFlip()
+	#Flip left / right
+	if canFlip:
+		if event.is_action_pressed("flip"):
+			horizontalFlip()
