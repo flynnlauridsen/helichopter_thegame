@@ -15,7 +15,9 @@ var angImpulse = 400
 func _ready():
 	pass
 	rayCastDist = sqrt(pow($RayCast2D.get_cast_to().x, 2) + pow($RayCast2D.get_cast_to().y, 2))
-	
+
+func healthPickUp():
+	print("Picked up health!")
 
 func valueSmooth(initValue, finValue, decayDuration):
 	$DecayTween.interpolate_property(self,"velImpulse",initValue,finValue,decayDuration,Tween.TRANS_LINEAR)
