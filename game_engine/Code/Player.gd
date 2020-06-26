@@ -7,8 +7,10 @@ var rateOfVelIncrease = 170
 var gEffectMult = 0
 var canFlip = false
 var rayCastDist
+var spaceTimer = 3
 
 var velImpulse = minVel
+var enginePow = minVel
 var angImpulse = 400
 
 
@@ -32,26 +34,39 @@ func horizontalFlip():
 
 func _physics_process(delta):
 #	print(linear_velocity)
+	
+	velImpulse = enginePow
+	
+	if spaceTimer > 3:
+		spaceTimer -= 1 * delta
+		
+	if Input.is_action_pressed("ability_1") and spaceTimer <= 3:
+		if spaceTimer > 0:
+			spaceTimer -= 1 * delta
+			
+	if Input.is_action_just_released("ability_1"):
+		spaceTimer = 7
+		
 	if Input.is_action_pressed("up"):
 		#can try offset on blades with apply_impulse
+		enginePow += rateOfVelIncrease * delta
+		enginePow = clamp(enginePow+rateOfVelIncrease*delta,minVel,maxVel)
 		if $DecayTween.is_active():
 			$DecayTween.stop_all()
-		
 		if($RayCast2D.get_collider()):
 			if($RayCast2D.get_collider().is_in_group("body")):
-				velImpulse *= rayCastDist/int(($RayCast2D.get_collision_point().distance_to(get_position())))
-				print(rayCastDist/$RayCast2D.get_collision_point().distance_to(get_position()))
+				velImpulse = enginePow * rayCastDist/int(($RayCast2D.get_collision_point().distance_to(get_position())))
+				#print(rayCastDist/$RayCast2D.get_collision_point().distance_to(get_position()))
 		else:
 			if($RayCast2D2.get_collider()):
 				if($RayCast2D2.get_collider().is_in_group("body")):
-					velImpulse *= rayCastDist/int(($RayCast2D2.get_collision_point().distance_to(get_position())))
-					print(rayCastDist/$RayCast2D2.get_collision_point().distance_to(get_position()))
-			
-		velImpulse = clamp(velImpulse+rateOfVelIncrease*delta,minVel,maxVel)
+					velImpulse = enginePow * rayCastDist/int(($RayCast2D2.get_collision_point().distance_to(get_position())))
+					#print(rayCastDist/$RayCast2D2.get_collision_point().distance_to(get_position()))
+		print(spaceTimer, "\n .........................", velImpulse)
 		apply_central_impulse(Vector2(velImpulse*delta*cos(deg2rad(rotation_degrees-90)),velImpulse*delta*sin(deg2rad(rotation_degrees-90))))
 		
 	if Input.is_action_just_released("up"):
-		valueSmooth(velImpulse, maxVel, 200)
+		valueSmooth(enginePow, maxVel, 200)
 		
 	if Input.is_action_pressed("down"):
 		if $DecayTween.is_active():
@@ -67,6 +82,11 @@ func _physics_process(delta):
 		
 	if Input.is_action_pressed("right"):
 		apply_torque_impulse(angImpulse)
+		
+	
+	
+	
+
 
 func _unhandled_key_input(event):
 	#Flip left / right
