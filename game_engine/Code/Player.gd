@@ -2,19 +2,19 @@ extends RigidBody2D
 
 var minVel = 500
 var maxVel = 1000
-var maxAng = 500
-var minAng = 300
 var rateOfVelDecay = 200
 var rateOfVelIncrease = 170
 var gEffectMult = 0
 var canFlip = false
+var rayCastDist
 
 var velImpulse = minVel
-var angImpulse = 300
+var angImpulse = 400
 
 
 func _ready():
 	pass
+	rayCastDist = sqrt(pow($RayCast2D.get_cast_to().x, 2) + pow($RayCast2D.get_cast_to().y, 2))
 	
 
 func valueSmooth(initValue, finValue, decayDuration):
@@ -37,8 +37,13 @@ func _physics_process(delta):
 		
 		if($RayCast2D.get_collider()):
 			if($RayCast2D.get_collider().is_in_group("body")):
-				velImpulse *= 220/int(($RayCast2D.get_collision_point().distance_to(get_position())))
-				print(220/$RayCast2D.get_collision_point().distance_to(get_position()))
+				velImpulse *= rayCastDist/int(($RayCast2D.get_collision_point().distance_to(get_position())))
+				print(rayCastDist/$RayCast2D.get_collision_point().distance_to(get_position()))
+		else:
+			if($RayCast2D2.get_collider()):
+				if($RayCast2D2.get_collider().is_in_group("body")):
+					velImpulse *= rayCastDist/int(($RayCast2D2.get_collision_point().distance_to(get_position())))
+					print(rayCastDist/$RayCast2D2.get_collision_point().distance_to(get_position()))
 			
 		velImpulse = clamp(velImpulse+rateOfVelIncrease*delta,minVel,maxVel)
 		apply_central_impulse(Vector2(velImpulse*delta*cos(deg2rad(rotation_degrees-90)),velImpulse*delta*sin(deg2rad(rotation_degrees-90))))
