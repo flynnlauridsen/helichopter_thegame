@@ -15,7 +15,10 @@ var angImpulse = 300
 
 func _ready():
 	pass
-	
+
+func healthPickUp():
+	print("Picked up health!")
+
 
 func valueSmooth(initValue, finValue, decayDuration):
 	$DecayTween.interpolate_property(self,"velImpulse",initValue,finValue,decayDuration,Tween.TRANS_LINEAR)
