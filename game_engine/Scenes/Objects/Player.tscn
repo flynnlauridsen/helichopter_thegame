@@ -40,9 +40,6 @@ margin_right = -460.0
 margin_bottom = 588.0
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 0, 70 )
 enabled = true
-cast_to = Vector2( 160, 300 )
-
-[node name="RayCast2D2" type="RayCast2D" parent="."]
-enabled = true
-cast_to = Vector2( -160, 300 )
+cast_to = Vector2( 0, 250 )
