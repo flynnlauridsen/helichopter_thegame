@@ -4,10 +4,11 @@ var minEnginePower = 500 # the minimum power from the engine
 var maxEnginePower = 1000 # the maximum ^
 var rateOfVelDecay = 200 # rate at which engine power decays when not pressed
 var rateOfVelIncrease = 170 # rate that engine power increase when pressed
-var gEffectMult = 1000 # the max force from ground effect (when on ground)
+var gEffectMult = 1000 # the max boost from ground effect (when on ground)
 var canFlip = false # allows fliping left/right 
 var rayCastDist
-var spaceTimer = 3
+var boostTimer = 3
+var boostPow = 2000
 
 var velImpulse = minEnginePower
 var enginePow = minEnginePower
@@ -37,15 +38,16 @@ func _physics_process(delta):
 	
 	velImpulse = enginePow
 	
-	if spaceTimer > 3:
-		spaceTimer -= 1 * delta
+	if boostTimer > 3:
+		boostTimer -= 1 * delta
 		
-	if Input.is_action_pressed("ability_1") and spaceTimer <= 3: # ability (boost) is started
-		if spaceTimer > 0:
-			spaceTimer -= 1 * delta
+	if Input.is_action_pressed("ability_1") and boostTimer <= 3: # ability (boost) is started
+		if boostTimer > 0:
+			boostTimer -= 1 * delta
+			apply_central_impulse(Vector2(boostPow*delta*cos(deg2rad(rotation_degrees-45)), boostPow*delta*sin(deg2rad(rotation_degrees-45))))
 			
 	if Input.is_action_just_released("ability_1"): 
-		spaceTimer = 7
+		boostTimer = 7
 		
 	if Input.is_action_pressed("up"): # fly upwards
 		enginePow += rateOfVelIncrease * delta # increase engine power as engine is active
@@ -57,10 +59,9 @@ func _physics_process(delta):
 		if($RayCast2D.get_collider()): # if ground effect raycast detects something
 			if($RayCast2D.get_collider().is_in_group("body")): # the body causes ground effect
 				velImpulse = enginePow + gEffectMult * (1-($RayCast2D.get_collision_point().distance_to($RayCast2D.global_position)/rayCastDist)) # finalImpulse = engine power + ( gEffectMult * (ground effect value from 0.0 to 1.0, where 1 is max effect) )
-#			print((1-($RayCast2D.get_collision_point().distance_to($RayCast2D.global_position)/rayCastDist)))
-		else: 
-			velImpulse = enginePow # no ground effect
-#		print(spaceTimer, " ......................... ", velImpulse)
+		elif($RayCast2D2.get_collider()): # if ground effect raycast detects something
+				if($RayCast2D2.get_collider().is_in_group("body")): # the body causes ground effect
+					velImpulse = enginePow + gEffectMult * (1-($RayCast2D2.get_collision_point().distance_to($RayCast2D2.global_position)/rayCastDist)) # no ground effect
 
 		apply_central_impulse(Vector2(velImpulse*delta*cos(deg2rad(rotation_degrees-90)),velImpulse*delta*sin(deg2rad(rotation_degrees-90)))) # apply the impulse that is calculated, includes engine thrust and ground effect addition
 		
