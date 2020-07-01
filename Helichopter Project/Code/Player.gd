@@ -55,14 +55,16 @@ func _physics_process(delta):
 		
 		if $DecayTween.is_active(): # stop decay as engine is active
 			$DecayTween.stop_all()
-		
+		var rayCast1Collided = false
 		if($RayCast2D.get_collider()): # if ground effect raycast detects something
 			if($RayCast2D.get_collider().is_in_group("body")): # the body causes ground effect
 				velImpulse = enginePow + gEffectMult * (1-($RayCast2D.get_collision_point().distance_to($RayCast2D.global_position)/rayCastDist)) # finalImpulse = engine power + ( gEffectMult * (ground effect value from 0.0 to 1.0, where 1 is max effect) )
+				rayCast1Collided = true
 		elif($RayCast2D2.get_collider()): # if ground effect raycast detects something
-				if($RayCast2D2.get_collider().is_in_group("body")): # the body causes ground effect
+			if($RayCast2D2.get_collider().is_in_group("body")): # the body causes ground effect
+				if rayCast1Collided and ((1-($RayCast2D2.get_collision_point().distance_to($RayCast2D2.global_position)/rayCastDist)) > ((1-($RayCast2D.get_collision_point().distance_to($RayCast2D.global_position)/rayCastDist)))): # checks if raycast 2 is larger, then overwrites if so
 					velImpulse = enginePow + gEffectMult * (1-($RayCast2D2.get_collision_point().distance_to($RayCast2D2.global_position)/rayCastDist)) # no ground effect
-
+		
 		apply_central_impulse(Vector2(velImpulse*delta*cos(deg2rad(rotation_degrees-90)),velImpulse*delta*sin(deg2rad(rotation_degrees-90)))) # apply the impulse that is calculated, includes engine thrust and ground effect addition
 		
 	if Input.is_action_just_released("up"): # no longer thrusting up
