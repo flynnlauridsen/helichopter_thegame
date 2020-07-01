@@ -4,10 +4,11 @@
 [ext_resource path="res://Resources/TileSets/tileSet2Atlas.tres" type="TileSet" id=2]
 [ext_resource path="res://Code/TimeTrialTest1.gd" type="Script" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 35, 105 )
 
 [sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 35, 105 )
+
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 165, 10 )
 
 [node name="TimeTrialTest1" type="Node2D"]
@@ -30,12 +31,12 @@ position = Vector2( 2065, 770 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Start"]
 scale = Vector2( 1, 2 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
-[node name="Stop" type="Area2D" parent="."]
+[node name="Start2" type="Area2D" parent="."]
 position = Vector2( 1715, 3420 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Stop"]
-shape = SubResource( 2 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Start2"]
+shape = SubResource( 1 )
 [connection signal="body_entered" from="Start" to="." method="_on_Start_body_entered"]
-[connection signal="body_entered" from="Stop" to="." method="_on_Start2_body_entered"]
+[connection signal="body_entered" from="Start2" to="." method="_on_Start2_body_entered"]
