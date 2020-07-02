@@ -74,10 +74,10 @@ func _physics_process(delta):
 		if $DecayTween.is_active():
 			$DecayTween.stop_all()
 		velImpulse = clamp(-velImpulse-rateOfVelIncrease*delta,maxEnginePower,minEnginePower)
-		apply_central_impulse(Vector2(-velImpulse*delta*cos(deg2rad(rotation_degrees-90))*0.6,-velImpulse*delta*sin(deg2rad(rotation_degrees-90))*0.6))
+		apply_central_impulse(Vector2(-velImpulse*delta*cos(deg2rad(rotation_degrees-90)),-velImpulse*delta*sin(deg2rad(rotation_degrees-90))))
 		
 	if Input.is_action_just_released("down"): # reverse thrust
-		valueSmooth(-velImpulse, -maxEnginePower, 200)
+		apply_central_impulse(Vector2(-minEnginePower*delta*cos(deg2rad(rotation_degrees-90)),minEnginePower*delta*sin(deg2rad(rotation_degrees-90))))
 		
 	if Input.is_action_pressed("left"): # rotate left
 		apply_torque_impulse(-angImpulse)
