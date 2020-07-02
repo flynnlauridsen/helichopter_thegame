@@ -1,11 +1,9 @@
-extends MarginContainer
+extends ProgressBar
 
 func _ready():
-	$ProgressBar.min_value = $"../..".minEnginePower
-	$ProgressBar.max_value = $"../..".maxEnginePower
+	min_value = $"../..".minEnginePower
+	max_value = $"../..".maxEnginePower
 	
 
 func _process(delta):
-	$ProgressBar.value = $"../..".enginePow
-	rect_position = $"../".position
-	rect_rotation = -90
+	value = $"../..".enginePow
