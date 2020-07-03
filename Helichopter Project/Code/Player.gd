@@ -1,14 +1,19 @@
 extends RigidBody2D
 
-var minEnginePower = 500 # the minimum power from the engine
+var minEnginePower = 700 # the minimum power from the engine
 var maxEnginePower = 1000 # the maximum ^
 var rateOfVelDecay = 200 # rate at which engine power decays when not pressed
 var rateOfVelIncrease = 170 # rate that engine power increase when pressed
-var gEffectMult = 1000 # the max boost from ground effect (when on ground)
+var gEffectMult = 700 # the max boost from ground effect (when on ground)
 var canFlip = false # allows fliping left/right 
 var rayCastDist
-var boostTimer = 3
-var boostPow = 2000
+var boostLength = 3 # how long the boost lasts
+var boostThreshold = 0.5 # % when boosting can start
+var boostPow = 1000
+var boostMeter = 0.0 # value on boost meter
+var boostGainRate = 0.15 # % gained per second (1.0 = 100% in 1 second)
+var boosting = false
+var boostTimer
 
 var velImpulse = minEnginePower
 var enginePow = minEnginePower
@@ -34,21 +39,31 @@ func horizontalFlip(): # flips player left/right
 	rotation *= -1
 
 func _physics_process(delta): 
-#	print(linear_velocity)
+	print(boostTimer)
 	
 	velImpulse = enginePow
 	
-	if boostTimer > 3:
-		boostTimer -= 1 * delta
-		
-	if Input.is_action_pressed("ability_1") and boostTimer <= 3: # ability (boost) is started
+	if Input.is_action_pressed("ability_1") and boosting==false and boostMeter > boostThreshold: # ability (boost) is started
+		#start boosting
+		boosting = true
+		boostTimer = boostMeter * boostLength
+	elif Input.is_action_just_released("ability_1") and boosting: 
+		boosting = false
+	
+	if boosting:
+		boostTimer -= delta
 		if boostTimer > 0:
-			boostTimer -= 1 * delta
+			boostMeter = boostTimer/boostLength
 			apply_central_impulse(Vector2(boostPow*delta*cos(deg2rad(rotation_degrees-45)), boostPow*delta*sin(deg2rad(rotation_degrees-45))))
-			
-	if Input.is_action_just_released("ability_1"): 
-		boostTimer = 7
-		
+		else:
+			boostMeter = 0.0
+			boosting = false
+	if not boosting:
+		boostMeter += boostGainRate*delta
+	
+	
+	
+	
 	if Input.is_action_pressed("up"): # fly upwards
 		enginePow += rateOfVelIncrease * delta # increase engine power as engine is active
 		enginePow = clamp(enginePow+rateOfVelIncrease*delta,minEnginePower,maxEnginePower) # restrict the range of engine power
@@ -70,14 +85,9 @@ func _physics_process(delta):
 	if Input.is_action_just_released("up"): # no longer thrusting up
 		valueSmooth(enginePow, minEnginePower, rateOfVelDecay) # start the decay of engine power
 		
-	if Input.is_action_pressed("down"):
-		if $DecayTween.is_active():
-			$DecayTween.stop_all()
-		velImpulse = clamp(-velImpulse-rateOfVelIncrease*delta,maxEnginePower,minEnginePower)
-		apply_central_impulse(Vector2(-velImpulse*delta*cos(deg2rad(rotation_degrees-90)),-velImpulse*delta*sin(deg2rad(rotation_degrees-90))))
 		
-	if Input.is_action_just_released("down"): # reverse thrust
-		apply_central_impulse(Vector2(-minEnginePower*delta*cos(deg2rad(rotation_degrees-90)),minEnginePower*delta*sin(deg2rad(rotation_degrees-90))))
+	if Input.is_action_pressed("down"): # reverse thrust
+		apply_central_impulse(Vector2(-minEnginePower*delta*cos(deg2rad(rotation_degrees-90)),-minEnginePower*delta*sin(deg2rad(rotation_degrees-90))))
 		
 	if Input.is_action_pressed("left"): # rotate left
 		apply_torque_impulse(-angImpulse)

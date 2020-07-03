@@ -9,7 +9,7 @@ friction = 0.5
 bounce = 0.1
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 1673.36, 47.15 )
+extents = Vector2( 5833.71, 47.15 )
 
 [node name="BaseNode" type="Node2D"]
 script = ExtResource( 3 )
@@ -33,9 +33,9 @@ physics_material_override = SubResource( 1 )
 shape = SubResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="Node2D/StaticBody2D"]
-margin_left = -938.0
+margin_left = -5733.0
 margin_top = -47.0
-margin_right = 979.0
+margin_right = 5775.0
 margin_bottom = 55.0
 __meta__ = {
 "_edit_use_anchors_": false

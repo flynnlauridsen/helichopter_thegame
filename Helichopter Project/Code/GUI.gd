@@ -1,9 +1,10 @@
-extends ProgressBar
+extends CanvasLayer
 
 func _ready():
-	min_value = $"../..".minEnginePower
-	max_value = $"../..".maxEnginePower
+	$EnginePowerBar.min_value = $"..".minEnginePower
+	$EnginePowerBar.max_value = $"..".maxEnginePower
 	
 
 func _process(delta):
-	value = $"../..".enginePow
+	$EnginePowerBar.value = $"..".enginePow
+	$AbilityBar.value = $"..".boostMeter
