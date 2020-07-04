@@ -14,7 +14,7 @@ var checkPointStatus = Array()
 func _ready():
 	set_process(false)
 	if numberOfCheckPoints >=0:
-		for i in range(0,numberOfCheckPoints):
+		for _i in range(0,numberOfCheckPoints):
 			checkPointStatus.append(false)
 			print (checkPointStatus)
 

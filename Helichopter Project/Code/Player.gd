@@ -1,12 +1,10 @@
 extends RigidBody2D
 
-var minEnginePower = 700 # the minimum power from the engine
-var maxEnginePower = 1000 # the maximum ^
-var rateOfVelDecay = 200 # rate at which engine power decays when not pressed
-var rateOfVelIncrease = 170 # rate that engine power increase when pressed
+
 var gEffectMult = 700 # the max boost from ground effect (when on ground)
 var canFlip = false # allows fliping left/right 
 var rayCastDist
+
 var boostLength = 3 # how long the boost lasts
 var boostThreshold = 0.5 # % when boosting can start
 var boostPow = 1000
@@ -15,17 +13,25 @@ var boostGainRate = 0.15 # % gained per second (1.0 = 100% in 1 second)
 var boosting = false
 var boostTimer
 
+export var minEnginePower = 700 # the minimum power from the engine
+export var maxEnginePower = 1000 # the maximum ^
+export var rateOfVelDecay = 200 # rate at which engine power decays when not pressed
+export var rateOfVelIncrease = 170 # rate that engine power increase when pressed
 var velImpulse = minEnginePower
 var enginePow = minEnginePower
-var angImpulse = 400
+export var angImpulse = 400
+
+export var health = 50
+export var maxHealth = 100
 
 
 func _ready():
 	rayCastDist = sqrt(pow($RayCast2D.get_cast_to().x, 2) + pow($RayCast2D.get_cast_to().y, 2))
-	print(rayCastDist)
 
-func healthPickUp(): # called when a health item is picked up
-	print("Picked up health!")
+func healthPickUp(addedHealth): # called when a health item is picked up
+	if health < maxHealth:
+		health = clamp(health + addedHealth,0,maxHealth)
+	
 
 func valueSmooth(initValue, finValue, decayRate): # tweens a variable in this script to change over time
 	$DecayTween.interpolate_property(self,"enginePow",initValue,finValue, (initValue-finValue)/decayRate ,Tween.TRANS_LINEAR)
@@ -39,7 +45,7 @@ func horizontalFlip(): # flips player left/right
 	rotation *= -1
 
 func _physics_process(delta): 
-	print(boostTimer)
+#	print(boostTimer)
 	
 	velImpulse = enginePow
 	
@@ -59,7 +65,7 @@ func _physics_process(delta):
 			boostMeter = 0.0
 			boosting = false
 	if not boosting:
-		boostMeter += boostGainRate*delta
+		boostMeter = clamp(boostMeter + boostGainRate*delta,0.0,1.0)
 	
 	
 	
