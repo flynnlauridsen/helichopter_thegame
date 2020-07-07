@@ -6,13 +6,13 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 1176.97
 
-[node name="VietCong" type="RigidBody2D"]
-mode = 1
+[node name="VietCong" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( 7.88367, -43.2141 )
-scale = Vector2( -1, 1 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
 polygon = PoolVector2Array( -25.2009, 52.7091, 9.83748, 53.0011, 10.4214, 12.1229, 15.9692, 10.079, 23.8528, 2.77934, 24, -8, 16, -16, 16, -32, 21.8089, -40.7267, 8, -56, -18.1932, -56.786, -34.8365, -40.7267, -29.2887, -31.3831, -29.2887, -27.2953, -22.2811, -24.0834, -22.2811, -15.3238, -32.5006, -10.944, -41.2602, -4.22834, -50.3118, -3.93636, -55.5676, 2.48735, -66.955, 2.19537, -67.831, 4.53126, -60.2393, 10.371, -40.0923, 10.955, -40, 24, -26.3689, 24.6783, -24, 56 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -23,4 +23,12 @@ flip_h = true
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource( 1 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 19.0026, 0.798267 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+enabled = true
+cast_to = Vector2( -90, 0 )
