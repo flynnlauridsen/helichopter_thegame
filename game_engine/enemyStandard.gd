@@ -6,6 +6,7 @@ var moveLow = 50
 var moveDirection = moveLow
 var moveGrav = 0
 var rayCast = -90
+var playerDetect
 
 
 # Called when the node enters the scene tree for the first time.
@@ -26,9 +27,10 @@ func _physics_process(delta):
 			moveGrav = 150
 		moveGrav += 20
 	moveDur -= delta
-	
-	if($Area2D.overlaps_body($"/root/LevelAutoTileTest/Player") and abs(moveDirection) == moveLow):
+	playerDetect = get_tree().get_nodes_in_group("Player")[0]
+	if($Area2D.overlaps_body(playerDetect) and abs(moveDirection) == moveLow):
 		moveDirection *= 3
+		
 	elif(moveDur <= 0 and abs(moveDirection) == moveLow*3):
 		moveDirection = moveDirection / 3
 		
@@ -41,12 +43,6 @@ func _physics_process(delta):
 		$RayCast2D.set_cast_to(Vector2(rayCast, 0))
 		
 	print($RayCast2D.is_colliding(), is_on_floor())
-	
-	if($Area2D.overlaps_body($"/root/LevelAutoTileTest/Player") and abs(moveDirection) == moveLow):
-		moveDirection *= 3
-	elif(moveDur <= 0 and abs(moveDirection) == moveLow*3):
-		moveDirection = moveDirection / 3
-		
 	
 		
 

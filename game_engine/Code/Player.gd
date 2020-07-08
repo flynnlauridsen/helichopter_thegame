@@ -18,6 +18,7 @@ var angImpulse = 400
 func _ready():
 	rayCastDist = sqrt(pow($RayCast2D.get_cast_to().x, 2) + pow($RayCast2D.get_cast_to().y, 2))
 	print(rayCastDist)
+	print(self.get_path())
 
 func healthPickUp(): # called when a health item is picked up
 	print("Picked up health!")
