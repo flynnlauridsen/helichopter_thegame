@@ -102,6 +102,7 @@ func _physics_process(delta):
 		
 	if Input.is_action_pressed("right"): # rotate right
 		apply_torque_impulse(angImpulse)
+	print(get_groups())
 
 func _unhandled_key_input(event):
 	#Flip left / right

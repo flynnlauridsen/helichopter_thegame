@@ -1,12 +1,12 @@
 extends KinematicBody2D
 
-
 var moveDur = 5
 var moveLow = 50
 var moveDirection = moveLow
 var moveGrav = 0
 var rayCast = -90
 var playerDetect
+var playerPos
 
 
 # Called when the node enters the scene tree for the first time.
@@ -18,7 +18,6 @@ func _physics_process(delta):
 	
 	if(is_on_floor()):
 		if($RayCast2D.is_colliding() == true):
-			moveDur += 2
 			moveGrav = -500
 		else:
 			moveGrav = 0
@@ -26,23 +25,35 @@ func _physics_process(delta):
 		if(moveGrav == 0):
 			moveGrav = 150
 		moveGrav += 20
+		
 	moveDur -= delta
-	playerDetect = get_tree().get_nodes_in_group("Player")[0]
-	if($Area2D.overlaps_body(playerDetect) and abs(moveDirection) == moveLow):
-		moveDirection *= 3
-		
-	elif(moveDur <= 0 and abs(moveDirection) == moveLow*3):
-		moveDirection = moveDirection / 3
-		
+	
 	if(moveDur <= 0):
-		moveDur = int(rand_range(5.0, 1.0))
+		moveDur = rand_range(5.0, 1.0)
 		moveDirection *= -1
 		$Sprite.flip_h = !$Sprite.flip_h
 		$CollisionPolygon2D.apply_scale(Vector2(-1, 1))
 		rayCast *= -1
 		$RayCast2D.set_cast_to(Vector2(rayCast, 0))
 		
-	print($RayCast2D.is_colliding(), is_on_floor())
+	playerDetect = get_tree().get_nodes_in_group("Player")
+	playerDetect = playerDetect[0]
+	playerPos = playerDetect.get_position()
+	
+	if($Area2D.overlaps_body(playerDetect)):
+		if(abs(moveDirection) == moveLow):
+			moveDirection *= 3
+		if(playerPos[0] - self.position[0] >= 0):
+			$Sprite.set_flip_h(true)#gonna need to make the collision body flip as well
+		else:
+			$Sprite.set_flip_h(false)
+		$GunCast.set_cast_to(Vector2(playerPos[0] * rand_range(0.7, 1.3), playerPos[1] *rand_range(0.7, 1.3)))	
+		if(playerDetect == $GunCast.get_collider()):
+			get_tree().notify_group("Player", 1)
+	elif(moveDur <= 0 and abs(moveDirection) == moveLow*3):
+		moveDirection = moveDirection / 3
+		
+	#print($RayCast2D.is_colliding(), is_on_floor(), " ", playerPos[0] - self.get_position()[0])
 	
 		
 
