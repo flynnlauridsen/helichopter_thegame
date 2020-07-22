@@ -27,8 +27,6 @@ export var maxHealth = 100
 
 func _ready():
 	rayCastDist = sqrt(pow($RayCast2D.get_cast_to().x, 2) + pow($RayCast2D.get_cast_to().y, 2))
-	print(rayCastDist)
-	print(self.get_path())
 
 func healthPickUp(addedHealth): # called when a health item is picked up
 	if health < maxHealth:
@@ -102,10 +100,16 @@ func _physics_process(delta):
 		
 	if Input.is_action_pressed("right"): # rotate right
 		apply_torque_impulse(angImpulse)
-	print(get_groups())
+	#print(get_groups())
 
 func _unhandled_key_input(event):
 	#Flip left / right
 	if canFlip:
 		if event.is_action_pressed("flip"):
 			horizontalFlip()
+			
+func _notification(what):
+	match what:
+		50:
+			print("damage has been dealt")
+			

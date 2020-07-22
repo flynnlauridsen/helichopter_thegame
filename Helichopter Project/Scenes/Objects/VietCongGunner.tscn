@@ -4,6 +4,7 @@
 [ext_resource path="res://Scenes/Objects/VietCongGunner.gd" type="Script" id=2]
 
 [node name="VietCong" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
 
 [node name="GunCast" type="RayCast2D" parent="." index="4"]
 position = Vector2( 17.3241, -42.0729 )
