@@ -4,12 +4,13 @@ extends "res://Code/enemyStandard.gd"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+var rpmGun = 0
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	playerDetect = get_tree().get_nodes_in_group("Player")
-	playerDetect = playerDetect[0] # Replace with function body.
+	playerDetect = playerDetect[0] 
 
 func _physics_process(delta):
 	enemyMovement(delta)
@@ -22,6 +23,7 @@ func _physics_process(delta):
 	playerPos = playerDetect.get_position()
 	if(moveDur <= 0 and abs(moveDirection) == moveLow*3):
 		moveDirection = moveLow
+		
 	if($Area2D.overlaps_body(playerDetect)):
 		if(abs(moveDirection) == moveLow):
 			moveDirection *= 3
@@ -29,11 +31,14 @@ func _physics_process(delta):
 			$Sprite.set_flip_h(true)#gonna need to make the collision body flip as well
 		else:
 			$Sprite.set_flip_h(false)
-			
-	
-		$GunCast.set_cast_to(Vector2(playerPos[0] * rand_range(0.7, 1.3), playerPos[1] *rand_range(0.7, 1.3)))	
-		if(playerDetect == $GunCast.get_collider()):
-			pass
+		rpmGun += delta
+		if(rpmGun > 1):
+			$GunCast.enabled = true
+			$GunCast.set_cast_to(Vector2((playerPos[0] - self.position[0]) * rand_range(0.1, 50), (playerPos[1] - self.position[1]) * rand_range(0.1, 50)))	
+			rpmGun = 0
+			if($GunCast.get_collider() == playerDetect):
+				print(rand_range(1, 10))
+				$GunCast.enabled = false
 	
 		
 			

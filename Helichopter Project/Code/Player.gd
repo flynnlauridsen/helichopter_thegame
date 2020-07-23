@@ -111,5 +111,6 @@ func _unhandled_key_input(event):
 func _notification(what):
 	match what:
 		50:
-			print("damage has been dealt")
+			pass
+			#print("damage has been dealt")
 			
