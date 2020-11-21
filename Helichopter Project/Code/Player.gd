@@ -21,7 +21,7 @@ var velImpulse = minEnginePower
 var enginePow = minEnginePower
 export var angImpulse = 400
 
-export var health = 50
+export var health = 100
 export var maxHealth = 100
 
 
@@ -35,6 +35,9 @@ func healthPickUp(addedHealth): # called when a health item is picked up
 func damageDealt(damage):
 	health = clamp(health - damage, 0, maxHealth)
 	
+func collisionDamage():
+	pass
+
 
 func valueSmooth(initValue, finValue, decayRate): # tweens a variable in this script to change over time
 	$DecayTween.interpolate_property(self,"enginePow",initValue,finValue, (initValue-finValue)/decayRate ,Tween.TRANS_LINEAR)
@@ -89,7 +92,7 @@ func _physics_process(delta):
 				if rayCast1Collided and ((1-($RayCast2D2.get_collision_point().distance_to($RayCast2D2.global_position)/rayCastDist)) > ((1-($RayCast2D.get_collision_point().distance_to($RayCast2D.global_position)/rayCastDist)))): # checks if raycast 2 is larger, then overwrites if so
 					velImpulse = enginePow + gEffectMult * (1-($RayCast2D2.get_collision_point().distance_to($RayCast2D2.global_position)/rayCastDist)) # no ground effect
 		
-		apply_central_impulse(Vector2(velImpulse*delta*cos(deg2rad(rotation_degrees-90)),velImpulse*delta*sin(deg2rad(rotation_degrees-90)))) # apply the impulse that is calculated, includes engine thrust and ground effect addition
+		apply_central_impulse(Vector2(cos(deg2rad(rotation_degrees-90)),sin(deg2rad(rotation_degrees-90)))*sqrt(health/maxHealth)*velImpulse*delta) # apply the impulse that is calculated, includes engine thrust and ground effect addition
 		
 	if Input.is_action_just_released("up"): # no longer thrusting up
 		valueSmooth(enginePow, minEnginePower, rateOfVelDecay) # start the decay of engine power

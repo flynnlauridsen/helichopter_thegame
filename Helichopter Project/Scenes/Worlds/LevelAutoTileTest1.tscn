@@ -9,6 +9,7 @@
 
 [node name="GroundTileMap" type="TileMap" parent="." groups=[
 "body",
+"wall",
 ]]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 70, 70 )
