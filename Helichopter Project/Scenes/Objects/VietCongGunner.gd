@@ -5,6 +5,7 @@ extends "res://Code/enemyStandard.gd"
 # var a = 2
 # var b = "text"
 var rpmGun = 0
+var damage = 1
 
 
 # Called when the node enters the scene tree for the first time.
@@ -37,7 +38,7 @@ func _physics_process(delta):
 			$GunCast.set_cast_to(Vector2((playerPos[0] - self.position[0]) * rand_range(0.1, 50), (playerPos[1] - self.position[1]) * rand_range(0.1, 50)))	
 			rpmGun = 0
 			if($GunCast.get_collider() == playerDetect):
-				print(rand_range(1, 10))
+				playerDetect.damageDealt(damage)
 				$GunCast.enabled = false
 	
 		

@@ -31,6 +31,9 @@ func _ready():
 func healthPickUp(addedHealth): # called when a health item is picked up
 	if health < maxHealth:
 		health = clamp(health + addedHealth,0,maxHealth)
+		
+func damageDealt(damage):
+	health = clamp(health - damage, 0, maxHealth)
 	
 
 func valueSmooth(initValue, finValue, decayRate): # tweens a variable in this script to change over time
@@ -108,9 +111,5 @@ func _unhandled_key_input(event):
 		if event.is_action_pressed("flip"):
 			horizontalFlip()
 			
-func _notification(what):
-	match what:
-		50:
-			pass
-			#print("damage has been dealt")
+
 			
