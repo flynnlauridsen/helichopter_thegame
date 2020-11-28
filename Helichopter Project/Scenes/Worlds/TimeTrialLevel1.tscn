@@ -1,16 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Resources/TileSets/testAutoTile2.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/Objects/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Other/TimeTrial.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/Graphics/Ring1L.png" type="Texture" id=4]
-[ext_resource path="res://assets/Graphics/Ring1R.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/Objects/TimeTrialVisibleCheckPoint.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 595 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 10, 35 )
 
 [node name="TimeTrialLevel1" type="Node2D"]
 
@@ -40,65 +36,11 @@ position = Vector2( 5950, 105 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TimeTrial/CheckPoint0"]
 shape = SubResource( 1 )
 
-[node name="CheckPoint1" type="Area2D" parent="TimeTrial"]
-position = Vector2( 13650, 1645 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TimeTrial/CheckPoint1"]
-shape = SubResource( 1 )
-
-[node name="Sprite" type="Sprite" parent="TimeTrial/CheckPoint1"]
-position = Vector2( 0, 0.000106812 )
-scale = Vector2( 1, 2.5 )
-z_index = -50
-texture = ExtResource( 4 )
-
-[node name="Sprite2" type="Sprite" parent="TimeTrial/CheckPoint1"]
-position = Vector2( 0, 0.000106812 )
-scale = Vector2( 1, 2.5 )
-z_index = 50
-texture = ExtResource( 5 )
-
-[node name="StaticBody2D" type="StaticBody2D" parent="TimeTrial/CheckPoint1"]
-position = Vector2( 0, -630 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TimeTrial/CheckPoint1/StaticBody2D"]
-shape = SubResource( 2 )
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="TimeTrial/CheckPoint1"]
-position = Vector2( 0, 630 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TimeTrial/CheckPoint1/StaticBody2D2"]
-shape = SubResource( 2 )
-
-[node name="CheckPoint2" type="Area2D" parent="TimeTrial"]
+[node name="CheckPoint1" parent="TimeTrial" instance=ExtResource( 4 )]
 position = Vector2( 13755, -1225 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TimeTrial/CheckPoint2"]
-shape = SubResource( 1 )
-
-[node name="Sprite" type="Sprite" parent="TimeTrial/CheckPoint2"]
-position = Vector2( 0, 0.000106812 )
-scale = Vector2( 1, 2.5 )
-z_index = -50
-texture = ExtResource( 4 )
-
-[node name="Sprite2" type="Sprite" parent="TimeTrial/CheckPoint2"]
-position = Vector2( 0, 0.000106812 )
-scale = Vector2( 1, 2.5 )
-z_index = 50
-texture = ExtResource( 5 )
-
-[node name="StaticBody2D" type="StaticBody2D" parent="TimeTrial/CheckPoint2"]
-position = Vector2( 0, -630 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TimeTrial/CheckPoint2/StaticBody2D"]
-shape = SubResource( 2 )
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="TimeTrial/CheckPoint2"]
-position = Vector2( 0, 630 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TimeTrial/CheckPoint2/StaticBody2D2"]
-shape = SubResource( 2 )
+[node name="CheckPoint2" parent="TimeTrial" instance=ExtResource( 4 )]
+position = Vector2( 13580, 1575 )
 
 [node name="CheckPoint3" type="Area2D" parent="TimeTrial"]
 position = Vector2( 22925, -840 )
